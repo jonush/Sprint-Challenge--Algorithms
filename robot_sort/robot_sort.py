@@ -96,8 +96,39 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        
+        # the robot can check if it is at the front or end of the list
+        # the robot can move left <-
+        # the robot can move right ->
+        # the robot can compare its held item to the item in front of it
+        # the robot can swap items
+        # the robot can turn on & turn off its light
+
+        # base case -> robot can no longer move right
+        if not self.can_move_right():
+            return 
+
+        # traverse to end of list
+        while self.can_move_right():
+            # find the largest item on the way to the end
+            if self.compare_item() == -1 or self.compare_item() == None:
+                self.swap_item()
+
+            self.move_right()
+        
+        # head back towards the start of the list
+        while self.can_move_left() and self.compare_item() != None:
+            # find the smallest item on the way back
+            if self.compare_item() == 1:
+                self.swap_item()
+
+            self.move_left()
+
+        # drop held item (smallest item) with item at the front of the list
+        self.swap_item()
+        # after sorting smallest item, start from the next item
+        self.move_right()
+        self.sort()
 
 
 if __name__ == "__main__":
